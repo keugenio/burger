@@ -1,15 +1,24 @@
-var orm = require("./config/orm.js");
+var express = require("express");
+var bodyParser = require("body-parser");
 
-// Find all the pets ordering by the lowest price to the highest price.
-orm.selectAndOrder("party_name", "parties", "party_cost");
+var app = express();
 
-// Find a pet in the pets table by an animal_name of Rachel.
-var data = orm.selectWhere("parties", "party_name", "Cigar", function() {
-	console.log(data);
-});
+var PORT = process.env.PORT || 3000;
 
-// Find the buyer with the most pets.
-orm.findWhoHasMost("client_name", "client_id", "clients", "parties");
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
 
-// orm.addClientAndParty("Bilal", "parties", "party for bob", "adult", 500);
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+var routes = require("./controllers/burgersController.js");
+
+app.use("/", routes);
+
+app.listen(PORT);

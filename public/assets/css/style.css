@@ -1,19 +1,31 @@
 li {
   padding: 5px;
   margin: 5px;
-  background: #faebd7;
 }
-
 .label {
   font-weight: bold;
 }
-
 .create-update-form {
   padding: 5px;
   margin: 5px;
-  background: aqua;
 }
-
 .form-group {
   margin-bottom: 5px;
+}
+.burgerPic, figure{
+	width: 125px; !important
+	height: 125px;
+	border-radius: 50px;	
+}
+
+button:hover{
+	cursor: pointer;
+}
+
+#btn_add, .btn_delete, #btn_editImage{
+	cursor: pointer;
+	color: #5bc0de;
+}
+#btn_add:hover, .btn_delete:hover, #btn_editImage:hover{
+	color: #428bca;	
 }

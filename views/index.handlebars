@@ -1,38 +1,109 @@
-<h1>Eat the Burger!</h1>
+<div class="container">
+  <div class="jumbotron mt-4">
+    <div class="d-flex justify-contents-start align-items-center">
+      <h1 class="display-3">Eat the Burger!</h1>
+      <div class="ml-auto">
+          <i class="fa fa-plus-circle fa-3x rounded-circle p-0" aria-hidden="true" id="btn_add" data-toggle="modal" data-target="#modalAddBurger"></i>
+      </div>
+    </div>
+    <p class="lead">Serve up burgers in the queue and devour them.  Re-serve from the eaten queue to devour them again</p>
+  <hr class="my-4">
 
-<h2>burgers not devoured!</h2>
+    <h1 class="text-center"></h1>
+    <div class="row">
+      <div class="col-md-6 col-lg-6" style="border-right: solid;" >
+          <p class="text-center display-4">burgers in the queue</p>
+            <div class="d-flex flex-wrap ">
+              {{#each burgers}}
+                {{#unless devoured}}
+                  {{> burgers/burger-block devoured=false}}
+                {{/unless}}
+              {{/each}}
+              </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+          <p class="text-center display-4">burgers crushed</p>
+            <div class="d-flex flex-wrap ">
+              {{#each burgers}}
+                {{#if devoured}}
+                  {{> burgers/burger-block devoured=true}}
+                {{/if}}
+              {{/each}}
+            </div>
+      </div>
+  </div> <!-- jumbotron -->
+</div> <!-- container -->
 
-<ul>
-  {{#each burgers}}
-    {{#unless devoured}}
-      {{> burgers/burger-block sleep=true}}
-    {{/unless}}
-  {{/each}}
-</ul>
+<!-- Modal Add Burger-->
+<div class="modal fade" id="modalAddBurger" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add a Burger</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form class="create-form">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <label for="newBurger">Burger Name:</label>
+                  <input type="text" id="newBurger" name="name" class="form-control"> 
+                  <div class="form-group">
+                    <label for="devoured">Status:</label><br>
+                    <input id="devoured" type="radio" name="devoured" value="0" checked> serve it up<br>
+                    <input id="devoured" type="radio" name="devoured" value="1"> already eaten
+                  </div>
+                </div>
+                <div class="col-md-6">                
+                  <label for="photo">Link to Photo Image</label>
+                  <i class="fa fa-pencil rounded-circle p-0" aria-hidden="true" data-toggle="modal" data-target="#modalAddImage" id="btn_editImage"></i>
+                  <input id="burgerImage" type="hidden" id="photo" class="form-control"></input>
+                  <img id="imgBurger" class="mt-2 rounded thumbnail burgerPic" src = "https://media-cdn.tripadvisor.com/media/photo-s/08/da/0f/7c/cyrus-persian-restaurant.jpg">
 
-<h2>burgers that have been devoured!</h2>
+                </div>
+              </div>              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+           </form>
+      </div>
 
-<ul>
-  {{#each burgers}}
-    {{#if devoured}}
-      {{> burgers/burger-block sleep=false}}
-    {{/if}}
-  {{/each}}
-</ul>
+    </div>
+  </div>
+</div>
 
-<h2>Add a Burger</h2>
-<form class="create-form">
+<!-- Modal Add Image-->
+<div class="modal fade" id="modalAddImage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add an image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form class="create-form">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">                
+                  <label for="photo">Link to Photo Image</label>
+                  <input type="text" id="photo" class="form-control burgerImage">
+                </div>
+              </div>              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+           </form>
+      </div>
 
-  <div class="form-group">
-    <label for="ca">Burger Name:</label>
-    <input type="text" id="ca" name="name">
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="slee">devourred?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Devoured!<br>
-    <input type="radio" name="sleepy" value="0"> Not devoured
-  </div>
-
-  <button type="submit">Add a Burger</button>
-</form>
+</div>
